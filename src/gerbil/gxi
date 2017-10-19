@@ -6,9 +6,7 @@ if [ -z "${GERBIL_HOME:-}" ]; then
     export GERBIL_HOME
 fi
 
-if [ -z "${GERBIL_GSI:-}" ]; then
-    source "${GERBIL_HOME}/lib/conf.sh"
-fi
+readonly GERBIL_GSI="${GERBIL_HOME}/bin/gerbil_gsi"
 
 if [ $# -gt 0 ]; then
     case $1 in

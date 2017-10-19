@@ -1,0 +1,4 @@
+#!/bin/bash
+
+readonly args=("$@")
+exec gsi "${args[@]}"

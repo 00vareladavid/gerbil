@@ -10,7 +10,7 @@ readonly GERBIL_SOURCE="$(pwd -P)"
 readonly GERBIL_BASE="$(dirname "${GERBIL_SOURCE}")"
 readonly GERBIL_BUILD="${GERBIL_SOURCE}/build"
 readonly GERBIL_STAGE0="${GERBIL_BASE}/bootstrap"
-readonly GERBIL_CONFIG="${GERBIL_SOURCE}/conf.sh"
+readonly GERBIL_GSI="${GERBIL_SOURCE}/gerbil/gerbil_gsi"
 
 #===============================================================================
 ## feedback
@@ -48,10 +48,10 @@ finalize_build () {
   local target_bin="${2}"
   cp -v gerbil/boot/*.scm \
         gerbil/interactive/*.ss \
-        "${GERBIL_CONFIG}" \
         "${target_lib}"
   cp -v gerbil/gxi \
         gerbil/gxc \
+        gerbil/gerbil_gsi \
         "${target_bin}"
   (cd "${target_bin}" && ln -s gxi gxi-script)
 }
@@ -169,12 +169,8 @@ build_gerbil() {
   build_tools  || die
 }
 
-## main
 #===============================================================================
-## load configuration file
-source "${GERBIL_CONFIG}" || die
-
-## handling command line
+## command line
 if [ -z "${1+x}" ]; then
   build_gerbil
 else
